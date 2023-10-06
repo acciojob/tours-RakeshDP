@@ -42,6 +42,7 @@ function App() {
   const [tours, setTours] = useState(toursData);
   const [isLoading, setIsLoading] = useState(false);
 
+  // to handle the showMore button
   const handleShowMore = (id) => {
     const updatedTours = tours.map((tour) => {
       if (tour.id === id) {
@@ -52,6 +53,7 @@ function App() {
     setTours(updatedTours);
   };
 
+  // to delete the tour from the data
   const handleDeleteTour = (id) => {
     const updatedTours = tours.filter((tour) => tour.id !== id);
     setTours(updatedTours);
@@ -89,7 +91,7 @@ function App() {
               </p>
               <p className="tour-price">Price: ${tour.price}</p>
               <button
-                className="delete-btn"
+                id="delete-btn"
                 onClick={() => handleDeleteTour(tour.id)}
               >
                 Remove
