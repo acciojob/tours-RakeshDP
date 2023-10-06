@@ -37,6 +37,7 @@ const toursData = [
     "price": "2,595"
   }
 ]
+
 function App() {
   const [tours, setTours] = useState(toursData);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +57,6 @@ function App() {
     setTours(updatedTours);
   };
 
-
   const handleRefresh = () => {
     setTours(toursData);
   };
@@ -66,32 +66,33 @@ function App() {
       <h1 className="title">Tours</h1>
       {isLoading ? (
         <p className="loading">Loading...</p>
-      )
-      : tours.length === 0 ? (
+      ) : tours.length === 0 ? (
         <div>
           <p>No more tours</p>
           <button className="btn" onClick={handleRefresh}>
             Refresh
           </button>
         </div>
-      ) 
-      : (
+      ) : (
         <div>
           {tours.map((tour) => (
             <div key={tour.id} className="single-tour">
               <img src={tour.image} alt={tour.name} />
               <h2>{tour.name}</h2>
-              <p className={`tour-info ${tour.showMore ? 'show' : 'hide'}`}>
-                {tour.info}
+              <p className="tour-info">
+                {tour.showMore
+                  ? tour.info
+                  : `${tour.info.substring(0, 200)}...`}
+                <button onClick={() => handleShowMore(tour.id)}>
+                  {tour.showMore ? 'Show Less' : 'Show More'}
+                </button>
               </p>
               <p className="tour-price">Price: ${tour.price}</p>
               <button
                 className="delete-btn"
                 onClick={() => handleDeleteTour(tour.id)}
-              >Delete Tour</button>
-
-              <button onClick={() => handleShowMore(tour.id)}>
-                {tour.showMore ? 'See Less' : 'Show More'}
+              >
+                Remove
               </button>
             </div>
           ))}
